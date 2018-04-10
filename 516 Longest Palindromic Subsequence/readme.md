@@ -17,4 +17,6 @@ Output:
 2
 One possible longest palindromic subsequence is "bb".
 
+### April.10
+
 这题目很好练dp思维
