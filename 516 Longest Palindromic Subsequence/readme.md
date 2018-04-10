@@ -2,9 +2,9 @@
 
 Example 1:
 Input:
-'''
+```
 "bbbab"
-'''
+```
 Output:
 4
 One possible longest palindromic subsequence is "bbbb".
