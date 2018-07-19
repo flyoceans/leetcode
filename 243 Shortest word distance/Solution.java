@@ -1,35 +1,17 @@
 class Solution {
-    public int[] maxSlidingWindow(int[] nums, int k) {
-        if (nums.length == 0 || k == 0)
-            return new int[k];
-        if (k == 1)
-            return nums;
-        Deque<Integer> deque = new LinkedList<>();
-        int[] ans = new int[nums.length-k+1];
-
-        for (int i = 0; i < nums.length; i++) {
-            if (i == 0) {
-                deque.addLast(nums[i]);
-                continue;
+    public int shortestDistance(String[] words, String word1, String word2) {
+        int index1 = -1, index2 = -1;
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].equals(word1)) {
+                index1 = i;
+            } 
+            if (words[i].equals(word2)) {
+                index2 = i;
             }
-            if (nums[i] <= deque.peekLast()) {
-                deque.addLast(nums[i]);
-            } else {
-                int cnt = 0;
-                while (!deque.isEmpty() && deque.peekLast() < nums[i]) {
-                    deque.removeLast();
-                    cnt++;
-                }
-                while (cnt > 0) {
-                    deque.addLast(nums[i]);
-                    cnt--;
-                }
-                deque.addLast(nums[i]);
-            }
-            if (i + 1 >= k)
-                ans[i - k + 1] = deque.removeFirst();
+            if (index1 != -1 && index2 != -1)
+                min = Math.min(min, Math.abs(index1 - index2));
         }
-        // ans[nums.length-k] = deque.removeFirst();
-        return ans;
+        return min;
     }
 }
