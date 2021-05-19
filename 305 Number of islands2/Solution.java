@@ -19,24 +19,14 @@ class Solution {
         public int find(int x) {
             if (x < 0 || x >= M*N)
                 return -1;
-            int root = x;
-            while (root != -1 && parents[root] != root) root = parents[root];
-            while (x != -1 && parents[x] != x) {
-                parents[x] = root;
-                x = parents[x];
-            }
-            return x;
+            if (parents[x] != x) parents[x] = find(parents[x]);
+            return parents[x];
         }
-        
-        //  public int find(int i) { // path compression
-        //     if (parents[i] != i) parents[i] = find(parents[i]);
-        //     return parents[i];
-        // }
         
         public void union(int a, int b) {
             int p_a = find(a);
             int p_b = find(b);
-            if (!connected(a, b)) {
+            if (p_a != p_b) {
                 if (ranks[p_a] > ranks[p_b]) {
                     parents[p_b] = p_a;
                     ranks[p_a] += ranks[p_b];
@@ -48,14 +38,15 @@ class Solution {
             }
         }
         
-        public boolean connected(int a, int b) {
-            int p_a = find(a);
-            int p_b = find(b);
-            return p_a == p_b;
-        }
+//         public boolean connected(int a, int b) {
+//             int p_a = find(a);
+//             int p_b = find(b);
+//             return p_a == p_b;
+//         }
         
         public void build(int i, int j) {
             int x = i*N + j;
+            if (parents[x] != -1) return;
             parents[x] = x;
             ranks[x] += 1;
             if (i+1 < M && find(x + N) != -1) {
