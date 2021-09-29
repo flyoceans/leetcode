@@ -1,5 +1,5 @@
 class Solution {
-    
+     //DAG Longest path, no fix source. O(n^2)
     public int longestIncreasingPath(int[][] matrix) {
         if (matrix == null || matrix.length == 0)
             return 0;
