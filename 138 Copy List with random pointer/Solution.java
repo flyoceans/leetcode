@@ -1,44 +1,38 @@
-/**
- * Definition for singly-linked list with a random pointer.
- * class RandomListNode {
- *     int label;
- *     RandomListNode next, random;
- *     RandomListNode(int x) { this.label = x; }
- * };
- */
-public class Solution {
-    public RandomListNode copyRandomList(RandomListNode head) {
-        if (head == null)
-            return null;
-        
-        RandomListNode h = head;
-        while (head != null) {
-            RandomListNode cp = new RandomListNode(head.label);
-            cp.next = head.next;
-            head.next = cp;
-            head = cp.next;
-        }
-        head = h;
-        while (head != null) {
-            if (head.random != null) {
-                head.next.random = head.random.next;
-            }
-            head = head.next.next;
-        }
-        head = h;
-        RandomListNode pesudo = h.next;
-        RandomListNode c = pesudo;
-        while (head != null) {
-            head.next = c.next;
-            if (c.next != null)
-                c.next = head.next.next;
-            else {
-                c.next = null;
-                break;
-            }
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+// Map<Node, Node> map
+// Traversal list, 
+class Solution {
+    public Node copyRandomList(Node head) {
+        if (head == null) return null;
+        Map<Node, Node> map = new HashMap<>();
+        map.put(head, new Node(head.val));
+        Node res = head;
+        while (head.next != null) {
+            Node next = new Node(head.next.val);
+            map.get(head).next = next;
+            map.put(head.next, next);
             head = head.next;
-            c = c.next;
         }
-        return pesudo;
+        head = res;
+        while (head != null) {
+            if (head.random != null)
+                map.get(head).random = map.get(head.random);
+            head = head.next; 
+        }
+        return map.get(res);
     }
 }
