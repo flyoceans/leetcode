@@ -27,7 +27,6 @@ class Solution {
         return result;
 
     }
-    
     public double dfs(String q1, String q2, HashMap<String, ArrayList<String>> pairs, HashMap<String, ArrayList<Double>> valuePairs, HashSet<String> set, double val) {
         if (set.contains(q1)) return 0.0;
         if (!pairs.containsKey(q1)) return 0.0;
