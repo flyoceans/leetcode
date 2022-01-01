@@ -9,4 +9,16 @@ class Solution {
     List<Integer> list = Arrays.stream(array).boxed().collect(Collectors.toList());
     List<Integer> list2 = new ArrayList<>(array.length);
     for (int i : array) list2.add(i);
+
+
+    // Enum
+    public enum Camera {
+        NONE,
+        CAMERA,
+        COVERED;
+    }
+
+    public Camera foo() {
+        return Camera.COVERED;
+    }
 }
