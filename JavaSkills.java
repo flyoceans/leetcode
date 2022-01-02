@@ -21,4 +21,15 @@ class Solution {
     public Camera foo() {
         return Camera.COVERED;
     }
+
+    // BinarySearch
+    int idx = Arrays.binarySearch(array, target);
+    if (idx < 0) idx = -idx - 1;
+
+    // TreeMap
+    TreeMap treeMap = new TreeMap<>();
+    treeMap.floorKey(target_key); // Greatest key less than or equal to the target key, return null if no such key
+    treeMap.floorEntry(target_key);
+    treeMao.ceilingKey(target_key); // Least key greater than or equal to the target key, return null if no such key
+
 }
