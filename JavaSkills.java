@@ -10,6 +10,8 @@ class Solution {
     List<Integer> list2 = new ArrayList<>(array.length);
     for (int i : array) list2.add(i);
 
+    // convert Set<integer> to List<Integer>
+    set.stream().collect(Collectors.toList());
 
     // Enum
     public enum Camera {
