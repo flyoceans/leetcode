@@ -11,31 +11,29 @@ class Solution {
     public void recoverTree(TreeNode root) {
         if (root == null)
             return;
-        Stack<TreeNode> stack = new Stack<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
         TreeNode pre = null;
-        TreeNode mark = null, end = null;
+        TreeNode first = null, second = null;
+        
         while (!stack.isEmpty() || root != null) {
             if (root != null) {
                 stack.push(root);
                 root = root.left;
             } else {
                 TreeNode t = stack.pop();
-                if (pre != null) {
-                    if (pre.val > t.val) {
-                        if (mark == null)
-                            mark = pre;
-                        end = t;
-                    }  
+                if (first == null && pre != null && pre.val >= t.val) {
+                    first = pre;
                 } 
+                if (first != null && pre.val >= t.val) {
+                    second = t;
+                }
                 pre = t;
                 root = t.right;
             }
         }
-        if (mark != null) {
-            int tmp = mark.val;
-            mark.val = end.val;
-            end.val = tmp;
-        }
+        int tmp = first.val;
+        first.val = second.val;
+        second.val = tmp;
         return;
     }
 }
