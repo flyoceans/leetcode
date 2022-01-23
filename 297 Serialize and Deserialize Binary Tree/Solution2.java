@@ -22,17 +22,16 @@ public class Codec {
                 TreeNode tmp = queue.poll();
                 if (tmp == null) {
                     res.append('#');
-                    res.append(' ');
-                    continue;
+                    res.append(',');
+                } else {
+                    res.append(tmp.val);
+                    res.append(',');
+                    queue.offer(tmp.left);
+                    queue.offer(tmp.right);
                 }
-                res.append(tmp.val);
-                res.append(' ');
-                    
-                queue.offer(tmp.left);
-                queue.offer(tmp.right);
             }
         }
-        while (res.charAt(res.length()-1) == ' ' || res.charAt(res.length()-1) == '#') {
+        if (res.charAt(res.length()-1) == ',') {
             res.deleteCharAt(res.length()-1);
         }
         return res.toString();
@@ -42,7 +41,7 @@ public class Codec {
     public TreeNode deserialize(String data) {
         if (data == "#") return null;
         Queue<TreeNode> q = new LinkedList<>();
-        String[] values = data.split(" ");
+        String[] values = data.split(",");
         TreeNode root = new TreeNode(Integer.parseInt(values[0]));
         q.add(root);
         for (int i = 1; i < values.length; i++) {
