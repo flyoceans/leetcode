@@ -13,6 +13,11 @@ class Solution {
     // convert Set<integer> to List<Integer>
     set.stream().collect(Collectors.toList());
 
+    //Arrays in Java are objects and don't override hashCode and equals. To better understand this, take the example below:
+    Set<int[]> set = new HashSet<>();
+    set.add(new int[] {1, 2});
+    System.out.println(set.contains(new int[] {1, 2})); // false
+
     // Enum
     public enum Camera {
         NONE,
