@@ -20,19 +20,20 @@ class Solution {
         if (head == null) return null;
         Map<Node, Node> map = new HashMap<>();
         map.put(head, new Node(head.val));
-        Node res = head;
-        while (head.next != null) {
-            Node next = new Node(head.next.val);
-            map.get(head).next = next;
-            map.put(head.next, next);
-            head = head.next;
+        
+        Node original = head;
+        while (original.next != null) {
+            Node nextCopy = new Node(original.next.val);
+            map.get(original).next = nextCopy;
+            map.put(original.next, nextCopy);
+            original = original.next;
         }
-        head = res;
-        while (head != null) {
-            if (head.random != null)
-                map.get(head).random = map.get(head.random);
-            head = head.next; 
+        original = head;
+        while (original != null) {
+            if (original.random != null)
+                map.get(original).random = map.get(original.random);
+            original = original.next; 
         }
-        return map.get(res);
+        return map.get(head);
     }
 }
