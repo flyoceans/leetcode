@@ -1,6 +1,6 @@
 class Solution {
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
-        // 1 TreeSet
+        // 1 TreeSet O(n * logk)
         // TreeSet<Long> tree = new TreeSet<>();
         // for (int i = 0; i < nums.length; i++) {
         //     Long floor = tree.floor((long)nums[i] + t);
