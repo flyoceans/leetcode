@@ -11,8 +11,6 @@ class Solution {
             return;
         }
         for (int i = visited+1; i <= n; i++) {
-            // if (visited[i])
-            //     continue;
             path.add(i);
             helper(res, n, k, i, path);
             path.remove(path.size()-1);
