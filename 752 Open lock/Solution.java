@@ -3,46 +3,33 @@ class Solution {
     // Graph, 无向无环图，模版bfs
     // O(8 * 10^4)
     // 注意轮播0-9的小tricky
-    public int openLock(String[] deadends, String target) {
-        String start = "0000";
-        if (target.equals(start)) return 0;
-        
-        Queue<String> queue = new LinkedList<>();
-        queue.add(start);
-        Set<String> visited = new HashSet<>();
-        visited.addAll(Arrays.asList(deadends));
-        if (visited.contains(start)) return -1;
-        visited.add(start);
-        int steps = 0;
-        while (!queue.isEmpty()) {
-            steps++;
-            int size = queue.size();
-            for (int i = 0; i < size; i++) {
-                String tmp = queue.poll();
-                List<String> neigbors = getNeigbors(tmp);
-                for (String neigbor: neigbors) {
-                    // System.out.println(neigbor);
-                    if (neigbor.equals(target)) return steps;
-                    if (!visited.contains(neigbor)) {
-                        visited.add(neigbor);
-                        queue.add(neigbor);
-                    }
-                    
-                }
+    public static int openLock(String[] deadends, String target) {
+        Queue<String> q = new LinkedList<>();
+        Set<String> visited = new HashSet<>(Arrays.asList(deadends));
+
+        int depth = 0;
+        q.add("0000");
+        while(!q.isEmpty()) {
+            int size = q.size();
+            for(int i = 0; i < size; i++) {
+                String node = q.poll();
+                if(node.equals(target)) return depth;
+                if(visited.contains(node)) continue;
+                visited.add(node);
+                q.addAll(getSuccessors(node));
             }
+            depth++;
         }
         return -1;
     }
     
-    List<String> getNeigbors(String node) {
-        List<String> res = new ArrayList<>();
+    private static List<String> getSuccessors(String str) {
+        List<String> res = new LinkedList<>();
+        // charArray[i] = (char)(c - '0' - 1); buxing
 
-        for (int i = 0; i < 4; i++) {
-            for (int d = -1; d <= 1; d += 2) {
-                char x = (char)(((node.charAt(i) - '0') + d + 10) % 10  + '0');
-                String nei = node.substring(0, i) + x + node.substring(i+1);
-                res.add(nei);
-            }
+        for (int i = 0; i < str.length(); i++) {
+            res.add(str.substring(0, i) + (str.charAt(i) == '0' ? 9 :  str.charAt(i) - '0' - 1) + str.substring(i+1));
+            res.add(str.substring(0, i) + (str.charAt(i) == '9' ? 0 :  str.charAt(i) - '0' + 1) + str.substring(i+1));
         }
         return res;
     }

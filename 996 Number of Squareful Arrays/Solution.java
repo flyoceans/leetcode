@@ -3,11 +3,11 @@ class Solution {
         boolean visited[] = new boolean[A.length];
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(A);
-        helper(result, A, new ArrayList<>(), -1, visited);
+        helper(result, A, new ArrayList<>(), visited);
         return result.size();
     }
     
-    public void helper(List<List<Integer>> result, int A[], List<Integer> path, int last_number, boolean visited[]) {
+    public void helper(List<List<Integer>> result, int A[], List<Integer> path, boolean visited[]) {
         if(path.size() == A.length) {
             result.add(new ArrayList<>(path));
             return;
@@ -17,12 +17,12 @@ class Solution {
             if(visited[i] || (i > 0 && A[i] == A[i - 1] && !visited[i - 1]))
                 continue;
 
-            if(last_number != -1 && !isSquare(A[i], last_number))
+            if(path.size() > 0 && !isSquare(A[i], last_number))
                 continue;
 
             path.add(A[i]);
             visited[i] = true;
-            helper(result, A, path, A[i], visited);
+            helper(result, A, path, visited);
             visited[i] = false;
             path.remove(path.size() - 1);
         }
