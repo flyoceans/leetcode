@@ -39,4 +39,9 @@ class Solution {
     treeMap.floorEntry(target_key);
     treeMao.ceilingKey(target_key); // Least key greater than or equal to the target key, return null if no such key
 
+    Deque<Integer> deque = new ArrayDeque<>();
+    deque.poll();
+    deque.add();
+    deque.peek();
+
 }
