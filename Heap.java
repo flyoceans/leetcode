@@ -1,6 +1,7 @@
 public class MinHeap {
     private int[] heap;
     private int size;
+    
 
     public MinHeap(int[] arr) {
         this.heap = arr;
