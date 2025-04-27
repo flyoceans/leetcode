@@ -13,7 +13,7 @@ class Solution {
         int p = partition(nums, left, right); // return index of pivot
         if (p == k) return;
         else if (p < k) quickSelect(nums, k, p+1, right);
-        else quickSelect(nums, k, left, p);
+        else quickSelect(nums, k, left, p-1);
     }
     
     int partition(int[] nums, int left, int right) {
@@ -23,15 +23,15 @@ class Solution {
         swap(nums, pivotIndex, right);
 
         int l = left, r = right-1;
-        while (l < r) {
-            while (nums[l] <= pivot && l < r) l++;
-            while (nums[r] > pivot && l < r) r--;
+        while (l <= r) {
+            while (l <= r && nums[l] <= pivot) l++;
+            while (l <= r && nums[r] > pivot) r--;
             if (l < r)
                 swap(nums, l, r);
         }
-        
-        swap(nums, right, r);
-        return r;
+  
+        swap(nums, right, l);
+        return l;
     }
     
     void swap(int[] nums, int a, int b) {
