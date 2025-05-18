@@ -33,6 +33,12 @@ class Solution {
     int idx = Arrays.binarySearch(array, target);
     if (idx < 0) idx = -idx - 1;
 
+    // HashMap
+    Map map = new HashMap<>();
+    map.putIfAbsent(key, value);
+    map.computeIfAbsent(key, k->new ArrayList<>()).add(foo);
+    map.getOrDefault(key, 0);
+
     // TreeMap
     TreeMap treeMap = new TreeMap<>();
     treeMap.floorKey(target_key); // Greatest key less than or equal to the target key, return null if no such key
