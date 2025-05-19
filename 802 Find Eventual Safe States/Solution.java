@@ -20,8 +20,6 @@ class Solution {
     State dfs(int[][] graph, State[] states, int node) {
         if (states[node] != State.UNKNOWN) // visited 
             return states[node];
-        if (states[node] == State.UNSAFE) // visiting
-            return State.UNSAFE;
         
         states[node] = State.UNSAFE;
         for (int next : graph[node]) {
